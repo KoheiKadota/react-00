@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/sample.css" />
+    <title>じゃんけん</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>復讐じゃんけん</h1>
+    </header>
+
+    <main>
+      <ul>
+        <li id="gu_btn">グー</li>
+        <li id="cho_btn">チョキ</li>
+        <li id="par_btn">パー</li>
+      </ul>
+      <div class="hand_result">
+      <div id="com_hand">🤖</div>
+      <div id="result">🙌</div>
+      </div>
+
+    </main>
+
+    <footer>負けるな！男だろ！</footer>
+
+    <!-- $("#id名").class名 -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      //グーボタンを押した時
+      $("#gu_btn").on("click", function () {
+        const min = 0;
+        const max = 2;
+        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+        // letで編集の初期化
+        let win = 0; //勝った場合
+        let lose = 0; //負けた場合
+        let draw = 0; //あいこの場合
+
+        // 乱数の指示を出す
+        console.log(randomNumber);
+
+        if (randomNumber === 0) {
+          $("#com_hand").text("グー");
+          $("#result").text("あいこ");
+          draw++; // あいこを1つカウント
+        }
+
+        if (randomNumber === 1) {
+          $("#com_hand").text("チョキ");
+          $("#result").text("あなたの勝ち");
+          win++; // 勝ちを1つカウント
+        }
+        if (randomNumber === 2) {
+          $("#com_hand").text("パー");
+          $("#result").text("あなたの負け");
+          lose++; // 負けを1つカウント
+        }
+      });
+
+      // チョキボタンを押した時
+      $("#cho_btn").on("click", function () {
+        const min = 0;
+        const max = 2;
+        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+        // letで編集の初期化
+        let win = 0; //勝った場合
+        let lose = 0; //負けた場合
+        let draw = 0; //あいこの場合
+
+        // 乱数の指示を出す
+        console.log(randomNumber);
+
+        if (randomNumber === 0) {
+          $("#com_hand").text("グー");
+          $("#result").text("あなたの負け");
+          lose++; // 負けを1つカウント
+        }
+        if (randomNumber === 1) {
+          $("#com_hand").text("チョキ");
+          $("#result").text("あいこ");
+          draw++; // あいこを1つカウント
+        }
+        if (randomNumber === 2) {
+          $("#com_hand").text("パー");
+          $("#result").text("あなたの勝ち");
+          win++; // 勝ちを1つカウント
+        }
+      });
+
+      // パーボタンを押した時
+      $("#par_btn").on("click", function () {
+        const min = 0;
+        const max = 2;
+        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+        // letで編集の初期化
+        let win = 0; //勝った場合
+        let lose = 0; //負けた場合
+        let draw = 0; //あいこの場合
+
+        // 乱数の指示を出す
+        console.log(randomNumber);
+
+        if (randomNumber === 0) {
+          $("#com_hand").text("グー");
+          $("#result").text("あなたの勝ち");
+          win++; // 勝ちを1つカウント
+        }
+        if (randomNumber === 1) {
+          $("#com_hand").text("チョキ");
+          $("#result").text("あなたの負け");
+          lose++; // 負けを1つカウント
+        }
+        if (randomNumber === 2) {
+          $("#com_hand").text("パー");
+          $("#result").text("あいこ");
+          draw++; // あいこを1つカウント
+        }
+      });
+    </script>
+
+
+
+<h2>React参考書(Amazonのオススメ)</h2>
+<div id="output"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- axiosライブラリの読み込み -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+  // リクエストを送るurlを準備
+  const url = 'https://www.googleapis.com/books/v1/volumes?q=intitle:react';
+
+  axios.get(url)
+    .then(function (response) {
+
+      console.log(response.data.items[1].volumeInfo);
+      const array = [];
+      for (let i = 0; i < response.data.items.length; i++) {
+        array.push(`<a href="${response.data.items[i].volumeInfo.infoLink}"><p>${response.data.items[i].volumeInfo.title}</p><a>`)
+      }
+
+      $('#output').html(array);
+    })
+    .catch(function (error) {
+
+      console.log(error);
+    })
+
+</script>
+
+
+<h3>realtime chat</h3>
+<!-- 入力場所を作成 -->
+<form>
+  <fieldset>
+    <legend>チャット入力画面</legend>
+    <div>
+      name: <input type="text" id="name">
+    </div>
+    <div>
+      text: <input type="text" id="text">
+    </div>
+    <div>
+      <button type="button" id="send">send</button>
+    </div>
+  </fieldset>
+</form>
+
+<!-- データ出力場所 -->
+<ul id="output"></ul>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+  // 日時をいい感じの形式にする関数
+  function convertTimestampToDatetime(timestamp) {
+    const _d = timestamp ? new Date(timestamp * 1000) : new Date();
+    const Y = _d.getFullYear();
+    const m = (_d.getMonth() + 1).toString().padStart(2, '0');
+    const d = _d.getDate().toString().padStart(2, '0');
+    const H = _d.getHours().toString().padStart(2, '0');
+    const i = _d.getMinutes().toString().padStart(2, '0');
+    const s = _d.getSeconds().toString().padStart(2, '0');
+    return `${Y}/${m}/${d} ${H}:${i}:${s}`;
+  }
+</script>
+<!-- 以下にfirebaseのコードを貼り付けよう -->
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp,
+    onSnapshot,
+  } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-firestore.js";
+
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "",
+    authDomain: "react-cec3c.firebaseapp.com",
+    projectId: "react-cec3c",
+    storageBucket: "react-cec3c.appspot.com",
+    messagingSenderId: "300952780414",
+    appId: "1:300952780414:web:a2a42adbcde59d6ae4622f"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // 送信時に必要な処理
+  $("#send").on("click", function () {
+    const postData = {
+      name: $("#name").val(),
+      text: $("#text").val(),
+      time: serverTimestamp(),
+    };
+    addDoc(collection(db, "chat"), postData);
+    $("#text").val("");
+  });
+
+  // データ取得処理
+  onSnapshot(collection(db, "chat"), (querySnapshot) => {
+    console.log(querySnapshot.docs);
+
+    // データ取得条件の指定（今回は時間の新しい順に並び替えて取得）
+    const q = query(collection(db, "chat"), orderBy("time", "desc"));
+
+    onSnapshot(q, (querySnapshot) => {
+
+      const documents = [];
+      querySnapshot.docs.forEach(function (doc) {
+        const document = {
+          id: doc.id,
+          data: doc.data(),
+        };
+        documents.push(document);
+      });
+
+      console.log(documents);
+
+      const htmlElements = [];
+      documents.forEach(function (document) {
+        htmlElements.push(`
+    <li id="${document.id}">
+      <p>${document.data.name
+          } at ${convertTimestampToDatetime(document.data.time.seconds)}</p> 
+      <p>${document.data.text}</p>
+    </li>
+  `);
+      });
+
+      $("#output").html(htmlElements);
+    });
+
+  });
+
+</script>
+
+
+
+  </body>
+</html>
+
